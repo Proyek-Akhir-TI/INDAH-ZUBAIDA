@@ -1,0 +1,93 @@
+<?php
+if(!$_SESSION['id_user']) {
+
+	 echo "
+        <meta http-equiv='refresh' content ='0; url=../index.html'>
+      ";
+} else {
+
+			
+?>
+
+	<div class="row">
+	<div class="col-12">
+		<div class="card">
+			<div class="card-header">
+				<h4>Data Mutasi Barang</h4>
+			</div>
+
+				<div class="card-body">
+					<div class="table-responsive">
+						<table class="table table-striped table-hover" id="tableExport" style="width: 100%;">
+							<div class="text-left mb-4">
+
+							
+							</div>
+
+								<thead>
+									<?php
+										include "../koneksi.php";
+										$query = mysqli_query($koneksi,"SELECT * FROM tb_mutasi left join tb_penempatan ON tb_mutasi.id_penempatan = tb_penempatan.id_penempatan left join tb_barang on tb_penempatan.id_barang = tb_barang.id_barang left join tb_lokasi ON tb_penempatan.id_lokasi = tb_lokasi.id_lokasi left join tb_user on tb_mutasi.id_user = tb_user.id_user ");
+
+
+
+									?>
+
+									
+									<tr>
+									<th>Id Mutasi</th>
+									<th>Id Penempatan</th>
+									<th>Tanggal Mutasi</th>
+									<th>Nama Barang</th>
+									<th>Ruang Lama</th>
+									<th>Ruang Baru</th>
+									<th>Jumlah</th>
+									<th>Kode Admin</th>
+																
+									
+									</tr>
+
+								</thead>
+
+								<tbody>
+									<?php
+										while ($data = mysqli_fetch_array($query)) {
+																						
+								
+									?>
+										<tr>
+												<td><?php echo $data['id_mutasi']?></td>
+												<td><?php echo $data['id_penempatan']?></td>
+												<td><?php echo $data['tanggal_mutasi']?></td>
+												<td><?php echo $data['nama_barang']?></td>
+												<td><?php echo $data['lokasi_lama']?></td>
+												<td><?php echo $data['nama_lokasi']?></td>
+												<td><?php echo $data['jumlah_barang']?></td>
+												<td><?php echo $data['nama_user']?></td>
+												
+												
+										</tr>
+								<?php
+								}
+
+								?>
+										
+								</tbody>
+
+							
+						</table>
+						
+					</div>
+					
+				</div>
+
+			
+		</div>
+	</div>
+</div>
+
+
+<?php 
+}
+
+?>
